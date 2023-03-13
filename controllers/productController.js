@@ -28,4 +28,25 @@ const addProduct = (req, res) => {
     })
 }
 
-module.exports = {showProducts, showProduct, addProduct}
+const updateProduct = (req, res) => {
+    const data = req.body;
+    const id = req.params.id;
+    prodModel.editProduct(data, id, (err, results) => {
+        if (err) throw err;
+        else {
+            res.json(results);
+        }
+    })
+}
+
+const deleteProduct = (req, res) => {
+    const id = req.params.id;
+    prodModel.removeProduct(id, (err, results) => {
+        if (err) throw err;
+        else {
+            res.json(results);
+        }
+    })
+}
+
+module.exports = {showProducts, showProduct, addProduct, updateProduct, deleteProduct}

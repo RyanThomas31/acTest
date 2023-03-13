@@ -37,8 +37,29 @@ const addOneProduct = (data, result) => {
     })
 }
 
-// const editProduct = (data, id, result) => {
-//     var updateQuery = "UPDATE products SET ?"
-// }
+const editProduct = (data, id, result) => {
+    var updateQuery = "UPDATE products SET ? WHERE id = ?";
+    db.query(updateQuery, [data, id], (err, results) => {
+        if (err) {
+            console.log(err);
+            result(err, null);
+        } else {
+            result(null, results)
+        }
+    } )
+    
+}
 
-module.exports = {getAllProducts, getOneProduct, addOneProduct}
+const removeProduct = (id, result) => {
+    var deleteQuery = "DELETE FROM products WHERE id = ?";
+    db.query(deleteQuery, [id], (err, results) => {
+        if (err) {
+            console.log(err);
+            result(err, null);
+        } else {
+            result(null, results)
+        }
+    })
+}
+
+module.exports = {getAllProducts, getOneProduct, addOneProduct, editProduct, removeProduct}
